@@ -7,7 +7,7 @@ import { AccountType } from "./entity/account_type.entity"
 import { Transaction } from "./entity/transaction.entity"
 import { TransactionCategory } from "./entity/transaction_category.entity"
 
-const PATH_TO_DATABASE = "./src/db/database.sqlite"
+const PATH_TO_DATABASE = "./database.sqlite"
 
 export const AppDataSource = new DataSource({
     type: "sqlite",
