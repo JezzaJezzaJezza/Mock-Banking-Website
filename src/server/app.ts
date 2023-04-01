@@ -10,7 +10,6 @@ import { AccountController } from "../db/controller/AccountController"
 import { Account } from "../db/entity/account.entity";
 import { AccountTypeController } from "../db/controller/AccountTypeController"
 import { AccountType } from "../db/entity/account_type.entity";
-import { v4 as uuidv4 } from 'uuid';
 //import cors from 'cors';
 const express = require('express');
 const app = express();
@@ -44,16 +43,13 @@ app.get("/user_details/accounts_details/transactions_made", async(req, resp)=>{
 app.post("/user_create", async(req, resp)=>{
 	//new user is created
 	const new_user = new User()
-	const user_uuid = uuidv4();
     new_user.username = req.body.username
-    new_user.user_id = user_uuid
 	new_user.password = req.body.password
 	new_user.first_name = req.body.first_name
 	new_user.middle_name = req.body.middle_name
 	new_user.last_name = req.body.last_name
 	new_user.email_address = req.body.email_address
 	new_user.dob = new Date(req.body.dob)
-	new_user.create_time = new Date(req.body.create_time)
     await UserController.insert(new_user)
 	resp.status(204).send()
 })
@@ -61,8 +57,6 @@ app.post("/user_details/accounts/create", async(req, resp)=>{
 	//new account created from a specific user
     // will need to assign it a sort code and account number (mock)	
 	const new_account = new Account()
-	const account_uuid = uuidv4();
-	new_account.account_id = account_uuid
 	new_account.user_id = req.body.user_id
 	new_account.account_no = "123456789"
 	new_account.sort_code = "123456"
@@ -80,8 +74,6 @@ app.delete("/user_details/accounts/delete", async(req, resp)=>{
 })
 app.post("/user_details/accounts/transactions", async(req, resp)=>{
 	const new_transaction = new Transaction()
-	const trans_uuid = uuidv4();
-	new_transaction.transaction_id = trans_uuid
 	new_transaction.account_id = req.body.account_id
 	new_transaction.transaction_content = req.body.trans_content
 	new_transaction.transaction_value = req.body.trans_val
